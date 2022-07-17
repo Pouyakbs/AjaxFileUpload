@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<form id="form" name="form" enctype="multipart/form-data" method="post">
+    <div class="buttons">
+        <div class="upload-button">
+            <div class="label">Click me!</div>
+            <input id="files" name="files" type="file" size="1" multiple onchange="uploadFiles('files');" />
+        </div>
+    </div>
+</form>
+
+<script>
+    function uploadFiles(files) {
+        var input = document.getElementById(files);
+        var files = input.files;
+        var formData = new FormData();
+
+        for (var i = 0; i != files.length; i++) {
+            formData.append("files", files[i]);
+        }
+
+        $.ajax(
+            {
+                url: "/",
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: "POST",
+                success: function (data) {
+                    alert("Files Uploaded!");
+                }
+            }
+        );
+    }
+</script>
